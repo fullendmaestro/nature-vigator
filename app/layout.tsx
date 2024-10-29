@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Flex Home",
-  description: " Experience the power of IoT with Flex Home&apos;s cutting-edge technology",
+  title: "Nature Navigator",
+  description: "Search diverce plants and animals species",
 };
 
 export default function RootLayout({

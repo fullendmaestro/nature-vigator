@@ -1,46 +1,53 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { signIn } from '@/lib/actions/user.actions'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/actions/user.actions";
 
 export default function SigninPage() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true) // Start loading
+    e.preventDefault();
+    setLoading(true); // Start loading
 
     try {
       const response = await signIn({
         email,
         password,
-      })
+      });
 
       if (response) {
         // Redirect to sign-in page after successful login
-        router.push('/chats')
+        router.push("/explore");
       }
     } catch (error) {
-      console.error("Error signing in:", error)
+      console.error("Error signing in:", error);
     } finally {
-      setLoading(false) // Stop loading
+      setLoading(false); // Stop loading
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
@@ -78,7 +85,9 @@ export default function SigninPage() {
                     size="sm"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={togglePasswordVisibility}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                   >
                     {showPassword ? (
                       <EyeOffIcon className="h-4 w-4" />
@@ -90,7 +99,7 @@ export default function SigninPage() {
               </div>
             </div>
             <Button type="submit" className="w-full mt-4" disabled={loading}>
-              {loading ? 'Logging in...' : 'Log in'}
+              {loading ? "Logging in..." : "Log in"}
             </Button>
           </form>
         </CardContent>
@@ -104,5 +113,5 @@ export default function SigninPage() {
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

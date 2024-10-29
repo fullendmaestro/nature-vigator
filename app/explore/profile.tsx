@@ -12,7 +12,8 @@ import {
   getLoggedInUser,
   logoutAccount,
 } from "@/lib/actions/user.actions";
-import { User, Settings, LogOut } from "lucide-react";
+import { User, Settings, LogOut, Plus } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -62,6 +63,12 @@ const Profile = () => {
         <DropdownMenuContent className="w-56">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <Link href={"/explore/create"}>
+              <Plus className="mr-2 h-4 w-4" />
+              <span>Create</span>
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>

@@ -1,53 +1,62 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { signUp } from '@/lib/actions/user.actions'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signUp } from "@/lib/actions/user.actions";
 
 export default function SignupPage() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [fullName, setfullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+  const [fullName, setfullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true) // Set loading state to true
+    e.preventDefault();
+    setLoading(true); // Set loading state to true
 
     // Prepare user data for submission
-    const userData = { fullName, email, password }
+    const userData = { fullName, email, password };
 
     try {
-      const newUser = await signUp(userData)
+      const newUser = await signUp(userData);
       if (newUser) {
         // Redirect to sign-in page after successful sign-up
-        router.push('/sign-in')
+        router.push("/sign-in");
       }
     } catch (error) {
-      console.error("Error signing up:", error)
+      console.error("Error signing up:", error);
     } finally {
-      setLoading(false) // Set loading state to false
+      setLoading(false); // Set loading state to false
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Create an account</CardTitle>
-          <CardDescription>Sign up for a personal account to get started.</CardDescription>
+          <CardDescription>
+            Sign up for a personal account to get started.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -87,7 +96,9 @@ export default function SignupPage() {
                     size="sm"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={togglePasswordVisibility}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                   >
                     {showPassword ? (
                       <EyeOffIcon className="h-4 w-4" />
@@ -99,7 +110,7 @@ export default function SignupPage() {
               </div>
             </div>
             <Button type="submit" className="w-full mt-4" disabled={loading}>
-              {loading ? 'Signing Up...' : 'Sign Up'}
+              {loading ? "Signing Up..." : "Sign Up"}
             </Button>
           </form>
         </CardContent>
@@ -113,5 +124,5 @@ export default function SignupPage() {
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }
